@@ -1,0 +1,91 @@
+* { 
+  box-sizing: border-box;
+}
+
+body {
+  height: 40vh;
+  margin: 50px;
+  background-color: darkgrey;
+}
+
+h1 {
+  text-align: center;
+  background-color: red;
+  margin: 40px;
+  font-size: 20px;
+  
+}
+
+.grid-wrapper {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 10px 0 black;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 600px;
+  width: 600px;
+  margin: 20px;
+}
+
+.grid div {
+  border: 0.5px solid gray;
+  height: 5%;
+  width: 5%;  
+  font-size: 8px;
+  background-color:white;
+}
+
+.footer-wrapper {
+  /* background-color: blue; */
+  display: flex;
+  justify-content:space-between;
+  flex-direction: row;
+  font-size: small;
+  margin: -40px 20px;
+  text-transform: uppercase;
+}
+
+.leftGroup {
+/* background-color: red; */
+justify-content: left;
+}
+
+.rightGroup {
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  /* background-color: pink; */
+}
+
+.grid div.megaman {
+  background-image: url('../assets/playership.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
