@@ -3,21 +3,21 @@
 }
 
 body {
-  height: 40vh;
-  margin: 50px;
+  height: 50vh;
+  margin: 0px;
   background-color: darkgrey;
 }
 
 h1 {
   text-align: center;
   background-color: red;
-  margin: 40px;
-  font-size: 20px;
+  margin: 10px;
+  font-size: 20px;  
   
 }
 
 .grid-wrapper {
-  height: 75vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
 }
@@ -29,15 +29,15 @@ h1 {
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
-  height: 600px;
-  width: 600px;
-  margin: 20px;
+  height: 594px;
+  width: 594px;
+  margin: 5px;
 }
 
 .grid div {
   border: 0.5px solid gray;
-  height: 5%;
-  width: 5%;  
+  height: 27px;
+  width: 27px;  
   font-size: 8px;
   background-color:white;
 }
@@ -48,7 +48,7 @@ h1 {
   justify-content:space-between;
   flex-direction: row;
   font-size: small;
-  margin: -40px 20px;
+  margin: 10px 90px;
   text-transform: uppercase;
 }
 
@@ -64,16 +64,26 @@ justify-content: left;
   /* background-color: pink; */
 }
 
-.grid div.megaman {
+.grid div.spaceship {
   background-image: url('../assets/playership.png');
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
 }
 
+.grid div.invader {
+  background-image: url('../assets/alien-sprite.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
 
-
-
+.grid div.laser {
+  background-image: url('../assets/laserup.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer; 
+}
 
 
 
