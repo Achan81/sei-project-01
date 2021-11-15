@@ -1,12 +1,17 @@
+// * * * * * * * * * *  M V P   N O T E S  * * * * * * * * * * 
 ///// *grid & cell
 /////*set boundary
 /////*set spaceship on grid
 /////*set left-right
-//*spaceship SPACEBAR fire laser
+///// *start button to reveal spaceship & invaders on game screen
+///// *clean up JS page to make it easier for me to read...
+//*spaceship SPACEBAR / X = fire laser
+//*manual laser working, need to loop.
 //*laser test movement (what happens as laser exceeds boundary?)
 //*start button - need to code
 //*scores link up - need to code
 //*player lives - need to code (3 inc start)
+
 /////*invaders single image test
 //*invaders cluster 
 //*invaders movement left&right
@@ -19,24 +24,26 @@
 //*pause function
 //*theme
 
+// * * * * * * * * * *  D O M   E L E M E N T S  * * * * * * * * * * 
 
-// * Dom Elements
 const grid = document.querySelector('.grid')
-const cells = []
-// const startButton = document.querySelector('#start')
+const startBtn = document.querySelector('#startBtn')
 
 // * grid variables
-const width = 24
-const height = 24
-const cellCount = width * height
+const cells = []
+const width = 25
+const cellCount = width * width
 
-// * game variables
-let spaceshipPosition = 539
-// let laserPosition = spaceshipPosition - width
-const invaderPosition = 
-[26,29,31,32,33,35,39,44,50,53,55,59,63,67,69,74,75,76,77,79,80,81,83,87,91,93,98,101,103,107,111,115,117,122,125,127,128,129,131,132,133,135,136,137,140,170,172,174,177,180,181,184,188,189,194,196,198,200,202,204,206,208,212,214,218,220,222,224,226,228,229,232,236,238,242,244,246,248,250,252,254,256,260,262,267,268,269,273,276,278,280,281,282,284,285]
 
-// * grid build
+// * * * * * * * * * *  G A M E   V A R I A B L E S  * * * * * * * * * * 
+
+let spaceshipPosition = 587
+let playerlaserPosition = spaceshipPosition - width
+
+const invaderPosition = [27,30,32,33,34,36,40,45,52,55,57,61,65,69,71,77,78,79,80,82,83,84,86,90,94,96,102,105,107,111,115,119,121,127,130,132,133,134,136,137,138,140,141,142,145,177,179,181,184,187,188,191,195,196,202,204,206,208,210,212,214,216,220,222,227,229,231,233,235,237,239,241,245,247,252,254,256,258,260,262,263,266,270,272,277,278,279,280,281,283,285,287,289,291,295,297,303,305,309,312,314,316,317,318,320,321]
+
+// * * * * * * * * * *  G R I D   B U I L D  * * * * * * * * * * 
+
 function createGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div')
@@ -44,14 +51,11 @@ function createGrid() {
     grid.appendChild(cell)
     cells.push(cell)
   }
-  addSpaceship()
-  addInvader()
-}
-createGrid()
+} createGrid()
+// addPlayerlaser()
 
-// cells[29].classList.add('aliens')
+// * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
-// * functions
 function addSpaceship() {
   cells[spaceshipPosition].classList.add('spaceship')
 }
@@ -60,25 +64,44 @@ function removeSpaceship() {
 }
 function handleKeyDown(event) {
   const x = spaceshipPosition % width
-  console.log('x', x) 
-  removeSpaceship()
+  const y = Math.floor(spaceshipPosition % width)
+  // console.log('x', x)
+  removeSpaceship() 
+  addPlayerlaser()
+  removePlayerlaser()
+
   switch (event.code) {
+ 
     case 'ArrowRight':
       if (x < width - 2) {
         spaceshipPosition++ //* = spaceshipPosition + 1 
-      }
-      break
+      } break
     case 'ArrowLeft':
       if (x > 1) {
         spaceshipPosition-- //* = spaceshipPosition - 1
-      }
-      break
+      } break
+    case 'KeyX':
+      // event.preventDefault()
+      if (y > 0) {
+        playerlaserPosition -= width
+      } break
+
     default: 
       console.log('Invalid key - no outcome')
       // *remove default at end of game
   }
-  addSpaceship()  
-  console.log(spaceshipPosition)
+  addSpaceship()
+  addPlayerlaser()
+}
+
+function addPlayerlaser() {
+  // playerlaserPosition.forEach((index) => {
+  cells[playerlaserPosition].classList.add('playerlaser')
+  // })
+}
+
+function removePlayerlaser() {
+  cells[playerlaserPosition].classList.remove('playerlaser')
 }
 
 function addInvader() {
@@ -86,19 +109,19 @@ function addInvader() {
     cells[index].classList.add('invader')
   })
 }
-addInvader()
-console.log(invaderPosition)
 
-// function handleStart() {
-//   window.setInterval(() => {
-//     // console.log('testing count')
-//   }, 1000)
-// }
 
-// * events 
+
+function handleStartGame() {
+  window.setInterval(() => {
+    addSpaceship()
+    addInvader()
+  }, 200)
+}
+
+
+// * * * * * * * * * *  E V E N T S  * * * * * * * * * * 
+
 document.addEventListener('keydown', handleKeyDown)
-// startButton.addEventListener('click', handleStart)
-
-
-
+startBtn.addEventListener('click', handleStartGame)
 
