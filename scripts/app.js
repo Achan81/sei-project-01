@@ -23,12 +23,12 @@
 //*pause function
 //*theme
 
-
 // * * * * * * * * * *  D O M   E L E M E N T S  * * * * * * * * * * 
 
 const grid = document.querySelector('.grid')
 const startBtn = document.querySelector('#startBtn')
 const scoreDisplay = document.querySelector('#score-display')
+// const livesDisplay = document.querySelector('#lives-display')
 
 // * * * * * * * * * *  G R I D  &  V A R I A B L E S  * * * * * * * * * * 
 const cells = []
@@ -44,114 +44,60 @@ function createGrid() {
   }
 } createGrid()
 
-// const invader = [27,30,32,33,34,36,40,45,52,55,57,61,65,69,71,77,78,79,80,82,83,84,86,90,94,96,102,105,107,111,115,119,121,127,130,132,133,134,136,137,138,140,141,142,145,177,179,181,184,187,188,191,195,196,202,204,206,208,210,212,214,216,220,222,227,229,231,233,235,237,238,241,245,247,252,254,256,258,260,262,264,266,270,272,278,280,284,287,289,291,292,293,295,296]
-
 let invader = [
-  { index: 27, isAlive: true },
-  { index: 30, isAlive: true },
-  { index: 32, isAlive: true },
-  { index: 33, isAlive: true },
-  { index: 34, isAlive: true },
-  { index: 36, isAlive: true },
-  { index: 40, isAlive: true },
-  { index: 45, isAlive: true },
-  { index: 52, isAlive: true },
-  { index: 55, isAlive: true }, 
-  { index: 57, isAlive: true },
-  { index: 61, isAlive: true },
-  { index: 65, isAlive: true },
-  { index: 69, isAlive: true },
-  { index: 71, isAlive: true },
-  { index: 77, isAlive: true },
-  { index: 78, isAlive: true },
-  { index: 79, isAlive: true },
-  { index: 80, isAlive: true },
-  { index: 82, isAlive: true },
-  { index: 83, isAlive: true },
-  { index: 84, isAlive: true },
-  { index: 86, isAlive: true },
-  { index: 90, isAlive: true },
-  { index: 94, isAlive: true },
-  { index: 96, isAlive: true },
-  { index: 102, isAlive: true },
-  { index: 105, isAlive: true },
-  { index: 107, isAlive: true },
-  { index: 111, isAlive: true },
-  { index: 115, isAlive: true },
-  { index: 119, isAlive: true },
-  { index: 121, isAlive: true },
-  { index: 127, isAlive: true },
-  { index: 130, isAlive: true },
-  { index: 132, isAlive: true },
-  { index: 133, isAlive: true },
-  { index: 134, isAlive: true },
-  { index: 136, isAlive: true },
-  { index: 137, isAlive: true },
-  { index: 138, isAlive: true },
-  { index: 140, isAlive: true },
-  { index: 141, isAlive: true },
-  { index: 142, isAlive: true },
-  { index: 145, isAlive: true },
-  { index: 177, isAlive: true },
-  { index: 179, isAlive: true },
-  { index: 181, isAlive: true },
-  { index: 184, isAlive: true },
-  { index: 187, isAlive: true },
-  { index: 188, isAlive: true },
-  { index: 191, isAlive: true },
-  { index: 195, isAlive: true },
-  { index: 196, isAlive: true },
-  { index: 202, isAlive: true },
-  { index: 204, isAlive: true },
-  { index: 206, isAlive: true },
-  { index: 208, isAlive: true },
-  { index: 210, isAlive: true },
-  { index: 212, isAlive: true },  
-  { index: 214, isAlive: true },
-  { index: 216, isAlive: true },  
-  { index: 220, isAlive: true },
-  { index: 222, isAlive: true },
-  { index: 227, isAlive: true },
-  { index: 229, isAlive: true },
-  { index: 231, isAlive: true },
-  { index: 233, isAlive: true },
-  { index: 235, isAlive: true },
-  { index: 237, isAlive: true },
-  { index: 238, isAlive: true },    
-  { index: 241, isAlive: true },
-  { index: 245, isAlive: true },
-  { index: 247, isAlive: true },
-  { index: 252, isAlive: true },
-  { index: 254, isAlive: true },
-  { index: 256, isAlive: true },
-  { index: 258, isAlive: true },  
-  { index: 260, isAlive: true },
-  { index: 262, isAlive: true },
-  { index: 264, isAlive: true },
-  { index: 266, isAlive: true },  
-  { index: 270, isAlive: true },
-  { index: 272, isAlive: true },
-  { index: 278, isAlive: true },
-  { index: 280, isAlive: true },
-  { index: 284, isAlive: true },
-  { index: 287, isAlive: true },
-  { index: 289, isAlive: true },
-  { index: 291, isAlive: true },
-  { index: 292, isAlive: true },
-  { index: 293, isAlive: true },
-  { index: 295, isAlive: true },
-  { index: 296, isAlive: true }
-]
-
+  { index: 27, isAlive: true }, { index: 30, isAlive: true },
+  { index: 32, isAlive: true }, { index: 33, isAlive: true },
+  { index: 34, isAlive: true }, { index: 36, isAlive: true },
+  { index: 40, isAlive: true }, { index: 45, isAlive: true },
+  { index: 52, isAlive: true }, { index: 55, isAlive: true }, 
+  { index: 57, isAlive: true }, { index: 61, isAlive: true },
+  { index: 65, isAlive: true }, { index: 69, isAlive: true },
+  { index: 71, isAlive: true }, { index: 77, isAlive: true },
+  { index: 78, isAlive: true }, { index: 79, isAlive: true },
+  { index: 80, isAlive: true }, { index: 82, isAlive: true },
+  { index: 83, isAlive: true }, { index: 84, isAlive: true },
+  { index: 86, isAlive: true }, { index: 90, isAlive: true },
+  { index: 94, isAlive: true }, { index: 96, isAlive: true },
+  { index: 102, isAlive: true }, { index: 105, isAlive: true },
+  { index: 107, isAlive: true }, { index: 111, isAlive: true },
+  { index: 115, isAlive: true }, { index: 119, isAlive: true },
+  { index: 121, isAlive: true }, { index: 127, isAlive: true },
+  { index: 130, isAlive: true }, { index: 132, isAlive: true },
+  { index: 133, isAlive: true }, { index: 134, isAlive: true },
+  { index: 136, isAlive: true }, { index: 137, isAlive: true },
+  { index: 138, isAlive: true }, { index: 140, isAlive: true },
+  { index: 141, isAlive: true }, { index: 142, isAlive: true },
+  { index: 145, isAlive: true }, { index: 177, isAlive: true },
+  { index: 179, isAlive: true }, { index: 181, isAlive: true },
+  { index: 184, isAlive: true }, { index: 187, isAlive: true },
+  { index: 188, isAlive: true }, { index: 191, isAlive: true },
+  { index: 195, isAlive: true }, { index: 196, isAlive: true },
+  { index: 202, isAlive: true }, { index: 204, isAlive: true },
+  { index: 206, isAlive: true }, { index: 208, isAlive: true },
+  { index: 210, isAlive: true }, { index: 212, isAlive: true },  
+  { index: 214, isAlive: true }, { index: 216, isAlive: true },  
+  { index: 220, isAlive: true }, { index: 222, isAlive: true },
+  { index: 227, isAlive: true }, { index: 229, isAlive: true },
+  { index: 231, isAlive: true }, { index: 233, isAlive: true },
+  { index: 235, isAlive: true }, { index: 237, isAlive: true },
+  { index: 238, isAlive: true }, { index: 241, isAlive: true },
+  { index: 245, isAlive: true }, { index: 247, isAlive: true },
+  { index: 252, isAlive: true }, { index: 254, isAlive: true },
+  { index: 256, isAlive: true }, { index: 258, isAlive: true },  
+  { index: 260, isAlive: true }, { index: 262, isAlive: true },
+  { index: 264, isAlive: true }, { index: 266, isAlive: true },  
+  { index: 270, isAlive: true }, { index: 272, isAlive: true },
+  { index: 278, isAlive: true }, { index: 280, isAlive: true },
+  { index: 284, isAlive: true }, { index: 287, isAlive: true },
+  { index: 289, isAlive: true }, { index: 291, isAlive: true },
+  { index: 292, isAlive: true }, { index: 293, isAlive: true },
+  { index: 295, isAlive: true }, { index: 296, isAlive: true } ]
 
 let spaceshipPosition = 587
-let playerlaserPosition = spaceshipPosition - width
-// console.log(playerLaser)
-let timerId = null
-// let invaderIndex = 0
-let playerHasFired = false
+// let timerId = null
 let score = 0
-
+// const invaderPosition = 0
+// const invaderlaserPosition = invaderPosition + width
 
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
@@ -159,13 +105,14 @@ function handleKeyDown(event) {
   const x = spaceshipPosition % width
   // const y = Math.floor(spaceshipPosition % width)
   // console.log('x', x)
-  removeSpaceship() 
+  // removeSpaceship() 
   // addPlayerlaser()
-  removePlayerlaser()
-
+  // removePlayerlaser()
+  removeSpaceship() 
   switch (event.code) {
     case 'ArrowRight':
       if (x < width - 2) {
+        
         spaceshipPosition++ //* = spaceshipPosition + 1 
       } break
     case 'ArrowLeft':
@@ -173,19 +120,11 @@ function handleKeyDown(event) {
         spaceshipPosition-- //* = spaceshipPosition - 1
       } break
     case 'Space': 
-      event.preventDefault()
-      if (playerHasFired === false) {
-        playerHasFired = true
-        handlePlayerlaser()
-      } else {
-        return
-      }
+      event.preventDefault(), handlePlayerlaser()
       break
-    default: 
-      console.log('Invalid key - no outcome')
+    default: console.log('Invalid key - no outcome')
   }
   addSpaceship()
-  // addPlayerlaser()
 }
 
 function addSpaceship() {
@@ -195,56 +134,50 @@ function removeSpaceship() {
   cells[spaceshipPosition].classList.remove('spaceship')
 }
 
-function addPlayerlaser() {
-  cells[playerlaserPosition].classList.add('playerlaser')
-}
-function removePlayerlaser() {
-  cells[playerlaserPosition].classList.remove('playerlaser')
-}
-
 function handlePlayerlaser() {
   // const y = Math.floor(playerlaserPosition % width)
-  playerlaserPosition = spaceshipPosition - width
-  
-  timerId = window.setInterval(() => {
-    
-    if (playerlaserPosition <= width) {
+  let playerlaserPosition = spaceshipPosition - width
+  cells[playerlaserPosition].classList.add('playerlaser')
+  function addPlayerlaser() {
+    cells[playerlaserPosition].classList.add('playerlaser')
+  }
+  function removePlayerlaser() {
+    cells[playerlaserPosition].classList.remove('playerlaser')
+  }
+
+  const timerId = window.setInterval(() => {
+    removePlayerlaser()
+    playerlaserPosition = playerlaserPosition - width
+    addPlayerlaser()
+    console.log(playerlaserPosition, width)
+    if (playerlaserPosition < width) {
+      console.log('ALERT')
       removePlayerlaser()
-      playerHasFired = false
+      console.log('REMOVED')
       clearInterval(timerId)
-      playerlaserPosition = playerlaserPosition - width
-      return
+      console.log('CLEARED')
+      
     } else if (cells[playerlaserPosition].classList.contains('invader')) {
       cells[playerlaserPosition].classList.remove('playerlaser')
       cells[playerlaserPosition].classList.remove('invader')
+      clearInterval(timerId) 
       
       score = score + 200
       scoreDisplay.textContent = score
-      clearInterval(timerId)
-
-      // } if (playerlaserPosition <= y === 0) {
-      //   removePlayerlaser()
-      //   clearInterval(timerId)
-    
-      //* find the single alien within aliens array = set it's 'alive' property to false.)
-    
-      const filteredArray = invader.filter(individualInvader=>{
-        return (individualInvader.index !== playerlaserPosition)
-      })
-      invader = filteredArray
-      console.log('after filter', invader)
-
-      // console.log('happening')
-      clearInterval(timerId)
-      playerHasFired = false
-      // invaderDestroyed()
-      return
     }
-    removePlayerlaser()
-    playerlaserPosition -= width  
-    addPlayerlaser()
+  
+    // if (invaders.isAlive <= 0) == 0{ - FINALISE
+    //   endGame()
+    // }
+    
+    const filteredArray = invader.filter(individualInvader=>{
+      return (individualInvader.index !== playerlaserPosition)
+    })
+    invader = filteredArray
+    console.log('after filter', invader)
     return
-  },50)
+    
+  },300)
 }
 
 
@@ -255,13 +188,11 @@ function addInvader() {
     cells[singleInvader.index].classList.add('invader')
   })
 }
-
 function removeInvader() {
   invader.forEach((singleInvader) => {
     cells[singleInvader.index].classList.remove('invader')
   })
 }
-
 function handleStartGame() {
   window.setTimeout(() => {
     addSpaceship()
@@ -269,13 +200,10 @@ function handleStartGame() {
   }, 200)
 
   let direction = 1
-  ///// function handleGameStart() {
   window.setInterval(() => {  
     const rightBorder = invader[invader.length - 1].index % width === width - 2
     const leftBorder = invader[0].index % width === 0
-
     removeInvader()  
-
     if (rightBorder && direction === 1) {
       invader = invader.map(invader => {
         invader.index += width
@@ -294,14 +222,41 @@ function handleStartGame() {
         return invader
       })
     }
-
     addInvader()
   }, 2000)
 }
 
+// * * * * * * * * * *  I N V A D E R  L A S E R S  * * * * * * * * * *
+
+// function addInvaderlaser() {
+//   cells[invaderlaserPosition].classList.add('invaderlaser')
+// }
+// function removeInvaderlaser() {
+//   cells[invaderlaserPosition].classList.remove('invaderlaser')
+// }
+
+// function handleInvaderLaser() {
+// // const y = Math.floor(playerlaserPosition % width)
+// invaderlaserPosition = invaderPosition + width
+//   timerId = window.setInterval(() => {
+    
+//   if (invaderlaserPosition <= width) {
+//       removeinvaderlaser()
+//       invaderHasFired = false
+//       clearInterval(timerId)
+//       invaderlaserPosition = invaderlaserPosition - width
+//       return
+    
+//     } else if (cells[invaderlaserPosition].classList.contains('spaceship')) {
+//       cells[invaderlaserPosition].classList.remove('invaderlaser')
+//       cells[invaderlaserPosition].classList.remove('spaceship')
+//     }
+//   } 
+
 
 // * * * * * * * * * *  E V E N T S  * * * * * * * * * *
 
-document.addEventListener('keydown', handleKeyDown)
 
-startBtn.addEventListener('click', handleStartGame) 
+
+document.addEventListener('keydown', handleKeyDown)
+startBtn.addEventListener('click', handleStartGame)
