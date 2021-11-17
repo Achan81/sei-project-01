@@ -72,9 +72,9 @@ justify-content: left;
 }
 
 .grid div.invader {
-  background-image: url('../assets/alien-sprite.png');
+  background-image: url('../assets/giphy.gif');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100%;
   cursor: pointer;
 }
 
