@@ -26,16 +26,16 @@ h1 {
 }
 
 .grid-wrapper {
-  height: 68vh;
+  height: 610px;
   display: flex;
   justify-content: center;
-  
+  color: white;
+  font-size: xx-large;
+  /* background-color: turquoise; */
 }
 
 .grid {
-
-  /* background-image: url('../assets/black space bg.jpg'); */
-  /* background-color: black; */
+  background-image: url('../assets/black space bg.jpg'); 
   align-items: center;
   box-shadow: 0 0 15px 0 white;
   display: flex;
@@ -49,12 +49,19 @@ h1 {
 
 .grid div {
   
-  border: 0.5px;
+  /* border: 0.1px solid black;  */
   height: 24px;
   width: 24px;  
   font-size: 8px;
   /* background-color:white; */
 }
+
+section {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+}
+
 
 .footer-wrapper {
   /* background-color: blue; */
@@ -62,20 +69,22 @@ h1 {
   justify-content:space-between;
   flex-direction: row;
   font-size: small;
-  margin: 10px 100px;
+  margin: 10px auto;
   text-transform: uppercase;
+  max-width: 600px;
+  align-self: center;
 }
 
 .leftGroup {
 /* background-color: red; */
 justify-content: left;
+margin-right: 150px;
 }
 
 .rightGroup {
-  display: flex;
   justify-content: right;
-  flex-direction: column;
   /* background-color: pink; */
+  margin-left: 150px;
 }
 
 .grid div.spaceship {
@@ -96,6 +105,8 @@ justify-content: left;
   background-image: url('../assets/laserup.png');
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
+  background-size: 70%;
   cursor: pointer; 
 }
 

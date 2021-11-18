@@ -97,7 +97,7 @@ let invader = [
 let spaceshipPosition = 587
 let score = 0
 let lives = 3
-// let timerId = null
+
 
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
@@ -106,19 +106,10 @@ function handleStartGame() {
   addInvader()
   handleInvaderMovement()
   handleInvaderlaser()
-  setTimer()
   setInterval(handleInvaderlaser, 3000)
 }
 
-function setTimer() {
-  // eslint-disable-next-line no-unused-vars
-  let timerId = 0
-  timerId = window.setInterval(() => {
-    removeInvader()
-    addInvader()
-    return
-  }, 2000)
-}
+
 
 function handleKeyDown(event) {
   const x = spaceshipPosition % width
@@ -160,7 +151,7 @@ function handlePlayerlaser() {
   function removePlayerlaser() {
     cells[playerlaserPosition].classList.remove('playerlaser')
   }
-  const timerId = window.setInterval(() => {
+  const playerLaserTimerId = window.setInterval(() => {
     removePlayerlaser()
     playerlaserPosition = playerlaserPosition - width
     addPlayerlaser()
@@ -169,28 +160,33 @@ function handlePlayerlaser() {
       console.log('ALERT')
       removePlayerlaser(), 
       console.log('REMOVED')
-      clearInterval(timerId), 
+      clearInterval(playerLaserTimerId), 
       console.log('CLEARED')
       
     } else if (cells[playerlaserPosition].classList.contains('invader')) {
       cells[playerlaserPosition].classList.remove('playerlaser')
       cells[playerlaserPosition].classList.remove('invader')
-      clearInterval(timerId) 
+      clearInterval(playerLaserTimerId) 
       
       score = score + 200
       scoreDisplay.textContent = score
+    } if (score === 18800) { 
+      handleWin()
     }
     const filteredArray = invader.filter(singleInvader=>{
       return (singleInvader.index !== playerlaserPosition)
     })
     invader = filteredArray
-    console.log('after filter', invader)
+    // console.log('after filter', invader)
     return
 
   },100)
+
 }
 
 // * * * * * * * * * *  I N V A D E R S  * * * * * * * * * *
+
+
 
 function addInvader() {
   invader.forEach((singleInvader) => {
@@ -203,11 +199,24 @@ function removeInvader() {
   })
 }
   
-function handleInvaderMovement(){
+function handleInvaderMovement(){  
   let direction = 1
-  window.setInterval(() => {  
+  const invaderMove = window.setInterval(() => {  
+    
+    const aliveInvaders = invader.filter(singleInvader => {
+      return singleInvader.isAlive === true 
+    })
+    aliveInvaders.map(singleInvader => {
+      if (singleInvader.index > 575) {
+        cells[singleInvader.index].classList.remove('invader')
+        clearInterval(invaderMove)
+        gameEnd()
+      }
+    })
+  
     const rightBorder = invader[invader.length - 1].index % width === width - 2
     const leftBorder = invader[0].index % width === 0
+
     removeInvader()  
     if (rightBorder && direction === 1) {
       invader = invader.map(invader => {
@@ -231,6 +240,9 @@ function handleInvaderMovement(){
   }, 2000)
 }
 
+
+
+
 // * * * * * * I N V A D E R  L A S E R S  * * * * * * * 
 
 function handleInvaderlaser() {  
@@ -238,26 +250,25 @@ function handleInvaderlaser() {
     return invader.isAlive === true 
   })
   let invaderlaserPosition = invader[Math.floor(Math.random() * invaderlaser.length)].index 
-  const timerId = window.setInterval(() => {
+  const invaderLaserTimerId = window.setInterval(() => {
 
     if (cells[invaderlaserPosition].classList.contains('spaceship')) {
       playerLoseLife()
       cells[invaderlaserPosition].classList.remove('invaderlaser')
-      console.log('invader lasers hit player') 
-      clearInterval(timerId)
+      clearInterval(invaderLaserTimerId)
       return
 
     } else if (invaderlaserPosition >= 600 ) {
       cells[invaderlaserPosition].classList.remove('invaderlaser')
-      console.log('invader lasers reached baseline') 
-      clearInterval(timerId)
+
+      clearInterval(invaderLaserTimerId)
       return
 
     } else {
       cells[invaderlaserPosition].classList.remove('invaderlaser')
       invaderlaserPosition += width
       cells[invaderlaserPosition].classList.add('invaderlaser')
-      console.log(invaderlaserPosition)
+    
       return
     }
   }, 400)
@@ -266,22 +277,23 @@ function handleInvaderlaser() {
 function playerLoseLife() {
   lives = lives - 1
   if (lives === 0) {
+    livesDisplay.textContent = lives
     gameEnd()
-    clearInterval()
   } else {
     livesDisplay.textContent = lives
   }
 }
 
 function gameEnd() {
-  grid.textContent = `You Lose! You scored: ${score}`
-    
-  clearInterval()
+  grid.textContent = `You Lose! You scored: ${score} points!`   
 }
 
+function handleWin() {
+  grid.textContent = `Invader Wave Cleared! You scored: ${score}`
+}
 
-// function handleWin() {
-//   grid.textContent = `Invader Wave Cleared! You scored: ${score}`
+// if (invader >= 575 ) {
+//   gameEnd()
 // }
 
 // * * * * * * * * * *  E V E N T S  * * * * * * * * * 
