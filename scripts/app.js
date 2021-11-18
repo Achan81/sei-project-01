@@ -7,17 +7,16 @@
 ///// *clean up JS page to make it easier for me to read...
 /////*spaceship SPACEBAR /fire laser
 /////*manual laser working, need to loop.
-//*laser test movement (what happens as laser exceeds boundary?)
+/////*laser test movement (what happens as laser exceeds boundary?)
 /////*start button - need to code
 /////*scores link up - need to code
 /////*invaders single image test
 /////*invaders cluster 
-/////*invaders movement left&right
 /////*invaders movement move down.. (currentPosition += width "Morning zoom 00.22.00")
-//*invaders shoot graphic + action
 /////*laser hit reaction - when invader hit... = die & remove invader + gain points.
+//*all invaders removed = end game ***************
+//*invaders shoot graphic + action
 //*laser hit reaction - when player hit... = die & lose 1 life, 
-//*all invaders removed = win
 //*player lives - need to code (3 inc start)
 //*all player lives gone = game over - window alert retry/restart?
 //*pause function
@@ -26,19 +25,21 @@
 // * * * * * * * * * *  D O M   E L E M E N T S  * * * * * * * * * * 
 
 const grid = document.querySelector('.grid')
+const cells = []
 const startBtn = document.querySelector('#startBtn')
 const scoreDisplay = document.querySelector('#score-display')
-// const livesDisplay = document.querySelector('#lives-display')
+const livesDisplay = document.querySelector('#lives-display')
+
 
 // * * * * * * * * * *  G R I D  &  V A R I A B L E S  * * * * * * * * * * 
-const cells = []
+
 const width = 25
 const cellCount = width * width
 
 function createGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div')
-    cell.textContent = i //*remove when releasing game
+    // cell.textContent = i //*remove when releasing game
     grid.appendChild(cell)
     cells.push(cell)
   }
@@ -94,20 +95,34 @@ let invader = [
   { index: 295, isAlive: true }, { index: 296, isAlive: true } ]
 
 let spaceshipPosition = 587
-// let timerId = null
 let score = 0
-// const invaderPosition = 0
-// const invaderlaserPosition = invaderPosition + width
+let lives = 3
+// let timerId = null
 
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
+function handleStartGame() {
+  addSpaceship()
+  addInvader()
+  handleInvaderMovement()
+  handleInvaderlaser()
+  setTimer()
+  setInterval(handleInvaderlaser, 3000)
+}
+
+function setTimer() {
+  // eslint-disable-next-line no-unused-vars
+  let timerId = 0
+  timerId = window.setInterval(() => {
+    removeInvader()
+    addInvader()
+    return
+  }, 2000)
+}
+
 function handleKeyDown(event) {
   const x = spaceshipPosition % width
-  // const y = Math.floor(spaceshipPosition % width)
   // console.log('x', x)
-  // removeSpaceship() 
-  // addPlayerlaser()
-  // removePlayerlaser()
   removeSpaceship() 
   switch (event.code) {
     case 'ArrowRight':
@@ -127,6 +142,7 @@ function handleKeyDown(event) {
   addSpaceship()
 }
 
+
 function addSpaceship() {
   cells[spaceshipPosition].classList.add('spaceship')
 }
@@ -144,7 +160,6 @@ function handlePlayerlaser() {
   function removePlayerlaser() {
     cells[playerlaserPosition].classList.remove('playerlaser')
   }
-
   const timerId = window.setInterval(() => {
     removePlayerlaser()
     playerlaserPosition = playerlaserPosition - width
@@ -152,9 +167,9 @@ function handlePlayerlaser() {
     console.log(playerlaserPosition, width)
     if (playerlaserPosition < width) {
       console.log('ALERT')
-      removePlayerlaser()
+      removePlayerlaser(), 
       console.log('REMOVED')
-      clearInterval(timerId)
+      clearInterval(timerId), 
       console.log('CLEARED')
       
     } else if (cells[playerlaserPosition].classList.contains('invader')) {
@@ -165,21 +180,15 @@ function handlePlayerlaser() {
       score = score + 200
       scoreDisplay.textContent = score
     }
-  
-    // if (invaders.isAlive <= 0) == 0{ - FINALISE
-    //   endGame()
-    // }
-    
-    const filteredArray = invader.filter(individualInvader=>{
-      return (individualInvader.index !== playerlaserPosition)
+    const filteredArray = invader.filter(singleInvader=>{
+      return (singleInvader.index !== playerlaserPosition)
     })
     invader = filteredArray
     console.log('after filter', invader)
     return
-    
-  },300)
-}
 
+  },100)
+}
 
 // * * * * * * * * * *  I N V A D E R S  * * * * * * * * * *
 
@@ -193,12 +202,8 @@ function removeInvader() {
     cells[singleInvader.index].classList.remove('invader')
   })
 }
-function handleStartGame() {
-  window.setTimeout(() => {
-    addSpaceship()
-    addInvader()
-  }, 200)
-
+  
+function handleInvaderMovement(){
   let direction = 1
   window.setInterval(() => {  
     const rightBorder = invader[invader.length - 1].index % width === width - 2
@@ -226,37 +231,61 @@ function handleStartGame() {
   }, 2000)
 }
 
-// * * * * * * * * * *  I N V A D E R  L A S E R S  * * * * * * * * * *
+// * * * * * * I N V A D E R  L A S E R S  * * * * * * * 
 
-// function addInvaderlaser() {
-//   cells[invaderlaserPosition].classList.add('invaderlaser')
-// }
-// function removeInvaderlaser() {
-//   cells[invaderlaserPosition].classList.remove('invaderlaser')
-// }
+function handleInvaderlaser() {  
+  const invaderlaser = invader.filter(invader => {
+    return invader.isAlive === true 
+  })
+  let invaderlaserPosition = invader[Math.floor(Math.random() * invaderlaser.length)].index 
+  const timerId = window.setInterval(() => {
 
-// function handleInvaderLaser() {
-// // const y = Math.floor(playerlaserPosition % width)
-// invaderlaserPosition = invaderPosition + width
-//   timerId = window.setInterval(() => {
+    if (cells[invaderlaserPosition].classList.contains('spaceship')) {
+      playerLoseLife()
+      cells[invaderlaserPosition].classList.remove('invaderlaser')
+      console.log('invader lasers hit player') 
+      clearInterval(timerId)
+      return
+
+    } else if (invaderlaserPosition >= 600 ) {
+      cells[invaderlaserPosition].classList.remove('invaderlaser')
+      console.log('invader lasers reached baseline') 
+      clearInterval(timerId)
+      return
+
+    } else {
+      cells[invaderlaserPosition].classList.remove('invaderlaser')
+      invaderlaserPosition += width
+      cells[invaderlaserPosition].classList.add('invaderlaser')
+      console.log(invaderlaserPosition)
+      return
+    }
+  }, 400)
+}
+
+function playerLoseLife() {
+  lives = lives - 1
+  if (lives === 0) {
+    gameEnd()
+    clearInterval()
+  } else {
+    livesDisplay.textContent = lives
+  }
+}
+
+function gameEnd() {
+  grid.textContent = `You Lose! You scored: ${score}`
     
-//   if (invaderlaserPosition <= width) {
-//       removeinvaderlaser()
-//       invaderHasFired = false
-//       clearInterval(timerId)
-//       invaderlaserPosition = invaderlaserPosition - width
-//       return
-    
-//     } else if (cells[invaderlaserPosition].classList.contains('spaceship')) {
-//       cells[invaderlaserPosition].classList.remove('invaderlaser')
-//       cells[invaderlaserPosition].classList.remove('spaceship')
-//     }
-//   } 
+  clearInterval()
+}
 
 
-// * * * * * * * * * *  E V E N T S  * * * * * * * * * *
+// function handleWin() {
+//   grid.textContent = `Invader Wave Cleared! You scored: ${score}`
+// }
 
-
+// * * * * * * * * * *  E V E N T S  * * * * * * * * * 
 
 document.addEventListener('keydown', handleKeyDown)
 startBtn.addEventListener('click', handleStartGame)
+

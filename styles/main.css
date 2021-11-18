@@ -2,29 +2,42 @@
   box-sizing: border-box;
 }
 
+
+
 body {
-  height: 50vh;
+  height: 100vh;
   margin: 0px;
   background-color: darkgrey;
+  background-image: url('../assets/8RJGtt0-space-planet-wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
   text-align: center;
-  background-color: red;
+  color: white;
+  /* background-color: red; */
   margin: 10px;
   font-size: 20px;  
+  text-transform: uppercase;
+  letter-spacing: 5px;
   
 }
 
 .grid-wrapper {
-  height: 66vh;
+  height: 68vh;
   display: flex;
   justify-content: center;
+  
 }
 
 .grid {
+
+  /* background-image: url('../assets/black space bg.jpg'); */
+  /* background-color: black; */
   align-items: center;
-  box-shadow: 0 0 10px 0 black;
+  box-shadow: 0 0 15px 0 white;
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -35,11 +48,12 @@ h1 {
 }
 
 .grid div {
-  border: 0.5px solid gray;
+  
+  border: 0.5px;
   height: 24px;
   width: 24px;  
   font-size: 8px;
-  background-color:white;
+  /* background-color:white; */
 }
 
 .footer-wrapper {
@@ -85,10 +99,16 @@ justify-content: left;
   cursor: pointer; 
 }
 
+.grid div.invaderlaser {
+  background-image: url('../assets/invaderlaser.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+}
 
-
-
-
+p {
+color: white;
+}
 
 
 
