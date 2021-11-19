@@ -80,7 +80,7 @@ let lives = 3
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
 function handleStartGame() {
-  audioPlayer.src = './assets/dos-88 - city stomper.mp3'
+  audioPlayer.src = './assets/dos-88-citystomper.mp3'
   audioPlayer.play()
   addSpaceship()
   addInvader()
