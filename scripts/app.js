@@ -98,7 +98,6 @@ let spaceshipPosition = 587
 let score = 0
 let lives = 3
 
-
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
 function handleStartGame() {
@@ -106,10 +105,9 @@ function handleStartGame() {
   addInvader()
   handleInvaderMovement()
   handleInvaderlaser()
-  setInterval(handleInvaderlaser, 3000)
+  setInterval(handleInvaderlaser, 600)
+  startBtn.style.visibility = 'hidden'
 }
-
-
 
 function handleKeyDown(event) {
   const x = spaceshipPosition % width
@@ -285,19 +283,28 @@ function playerLoseLife() {
 }
 
 function gameEnd() {
-  grid.textContent = `You Lose! You scored: ${score} points!`   
+  grid.textContent = `You Lose! You scored: ${score} points!` 
+  setInterval(playAgain, 2000)
 }
 
 function handleWin() {
   grid.textContent = `Invader Wave Cleared! You scored: ${score}`
+  setInterval(roundTwo, 3000)
 }
 
-// if (invader >= 575 ) {
-//   gameEnd()
-// }
+function playAgain() {
+  location.reload()
+}
+
+function roundTwo() {
+  location.reload()
+  setInterval(handleInvaderMovement, 200)
+  setInterval(handleInvaderlaser, 50) 
+}
+//* TRYING TO RELOAD 2nd LEVEL with INCREASED DIFFICULTY
+
 
 // * * * * * * * * * *  E V E N T S  * * * * * * * * * 
 
 document.addEventListener('keydown', handleKeyDown)
 startBtn.addEventListener('click', handleStartGame)
-
