@@ -4,24 +4,25 @@
 
 body {
   font-family: 'Orbitron', sans-serif;
-  height: 100vh;
+  height: 98vh;
   margin: 0px;
-  background-color: darkgrey;
+  background-color: black;
   background-image: url('../assets/8RJGtt0-space-planet-wallpaper.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
 }
 
 h1 {
   text-align: center;
   color: white;
   /* background-color: red; */
-  margin: 10px;
-  font-size: 15px;  
+  /* margin: 10px; */
+  font-size: 17px;  
   text-transform: uppercase;
-  letter-spacing: 15px;
+  letter-spacing: 25px;
   font-weight: bold;
+  margin-left: 15px;
   
 }
 
@@ -35,12 +36,20 @@ h1 {
 }
 
 .grid {
-  background-image: url('../assets/black space bg.jpg'); 
+  /* background-image: url('../assets/outerspace-55.gif'); 
+  background-size: 100%;  */
+  /* background-image: url('../assets/outerspace-74.gif'); 
+  background-size:cover; */
+  /* background-image: url('../assets/outerspace-57.gif'); 
+  background-size: cover; */
+
+  background-image: url('../assets/outerspace-64.gif'); 
+  background-size: 104%;
+
   align-items: center;
   box-shadow: 0 0 15px 0 white;
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   justify-content: center;
   height: 600px;
   width: 600px;
@@ -67,13 +76,14 @@ section {
   display: flex;
   justify-content: center;
   flex-direction: row;
-  font-size: 10px;
+  font-size: 12px;
   margin: 10px auto;
   text-transform: uppercase;
   text-shadow: black 2px 2px 4px;
   max-width: 600px;
   align-self: center;
   align-items: top;
+  letter-spacing: 2px;
 }
 
 .leftGroup {
@@ -90,26 +100,25 @@ margin-right: 90px;
   letter-spacing: 4px;
   color:white;
   display:inline;
-  background-color: darkred;
+  background-color: transparent;
   border-radius:1px;
   margin-top: 15px;
 }
-#startBtn:hover {background-color:grey;}
+#startBtn:hover {background-color:goldenrod;}
 #startBtn:active {
-  background-color: darkred;
-  box-shadow: 0 1px black;
+  background-color: green;
+  box-shadow: 0 1px white;
   transform: translateY(2px);
-  color: black;
+  color: white;
 }
 
 .rightGroup {
   justify-content: right;
   /* background-color: pink; */
   margin-left: 110px;
-  padding-left:45px ;
+  padding-left:45px;
+  text-align: right;
 }
-
-
 
 .grid div.spaceship {
   background-image: url('../assets/playership.png');

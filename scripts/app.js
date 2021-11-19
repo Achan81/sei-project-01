@@ -1,26 +1,3 @@
-// * * * * * * * * * *  M V P   N O T E S  * * * * * * * * * * 
-///// *grid & cell
-/////*set boundary
-/////*set spaceship on grid
-/////*set left-right
-///// *start button to reveal spaceship & invaders on game screen
-///// *clean up JS page to make it easier for me to read...
-/////*spaceship SPACEBAR /fire laser
-/////*manual laser working, need to loop.
-/////*laser test movement (what happens as laser exceeds boundary?)
-/////*start button - need to code
-/////*scores link up - need to code
-/////*invaders single image test
-/////*invaders cluster 
-/////*invaders movement move down.. (currentPosition += width "Morning zoom 00.22.00")
-/////*laser hit reaction - when invader hit... = die & remove invader + gain points.
-//*all invaders removed = end game ***************
-//*invaders shoot graphic + action
-//*laser hit reaction - when player hit... = die & lose 1 life, 
-//*player lives - need to code (3 inc start)
-//*all player lives gone = game over - window alert retry/restart?
-//*pause function
-//*theme
 
 // * * * * * * * * * *  D O M   E L E M E N T S  * * * * * * * * * * 
 
@@ -29,17 +6,19 @@ const cells = []
 const startBtn = document.querySelector('#startBtn')
 const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
+const audioPlayer = document.querySelector('#audio')
+
 
 
 // * * * * * * * * * *  G R I D  &  V A R I A B L E S  * * * * * * * * * * 
 
-const width = 25
-const cellCount = width * width
+const width = 25  //*(odd numbers limited to 3,9,19,25)
+const cellCount = width * width //* =(otherwise width * height for rectangle)
 
-function createGrid() {
+function createGrid() {   
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div')
-    // cell.textContent = i //*remove when releasing game
+    // cell.textContent = i  //*(applies grid numbers to each cell)
     grid.appendChild(cell)
     cells.push(cell)
   }
@@ -101,30 +80,44 @@ let lives = 3
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
 function handleStartGame() {
+  audioPlayer.src = './assets/dos-88 - city stomper.mp3'
+  audioPlayer.play()
   addSpaceship()
   addInvader()
   handleInvaderMovement()
   handleInvaderlaser()
-  setInterval(handleInvaderlaser, 600)
+  setInterval(handleInvaderlaser, 100)
   startBtn.style.visibility = 'hidden'
 }
 
 function handleKeyDown(event) {
   const x = spaceshipPosition % width
-  // console.log('x', x)
+  const y = Math.floor(spaceshipPosition / width)
+  
   removeSpaceship() 
   switch (event.code) {
     case 'ArrowRight':
       if (x < width - 2) {
-        
         spaceshipPosition++ //* = spaceshipPosition + 1 
       } break
     case 'ArrowLeft':
       if (x > 1) {
         spaceshipPosition-- //* = spaceshipPosition - 1
       } break
+    case 'ArrowDown':
+      if (y < width - 1) {
+        spaceshipPosition += width
+      }
+      break
+    case 'ArrowUp':
+      if (y > 0) {
+        spaceshipPosition -= width
+      }
+      break
     case 'Space': 
       event.preventDefault(), handlePlayerlaser()
+      // audioPlayer.src = './assets/playerlaser.wav'
+      // audioPlayer.play()
       break
     default: console.log('Invalid key - no outcome')
   }
@@ -140,7 +133,6 @@ function removeSpaceship() {
 }
 
 function handlePlayerlaser() {
-  // const y = Math.floor(playerlaserPosition % width)
   let playerlaserPosition = spaceshipPosition - width
   cells[playerlaserPosition].classList.add('playerlaser')
   function addPlayerlaser() {
@@ -154,16 +146,15 @@ function handlePlayerlaser() {
     playerlaserPosition = playerlaserPosition - width
     addPlayerlaser()
     console.log(playerlaserPosition, width)
-    if (playerlaserPosition < width) {
-      console.log('ALERT')
-      removePlayerlaser(), 
-      console.log('REMOVED')
-      clearInterval(playerLaserTimerId), 
-      console.log('CLEARED')
+    if (playerlaserPosition < width) {    
+      removePlayerlaser()              
+      clearInterval(playerLaserTimerId)
       
     } else if (cells[playerlaserPosition].classList.contains('invader')) {
       cells[playerlaserPosition].classList.remove('playerlaser')
       cells[playerlaserPosition].classList.remove('invader')
+      // audioPlayer.src = './assets/explode.wav'
+      // audioPlayer.play()
       clearInterval(playerLaserTimerId) 
       
       score = score + 200
@@ -174,17 +165,14 @@ function handlePlayerlaser() {
     const filteredArray = invader.filter(singleInvader=>{
       return (singleInvader.index !== playerlaserPosition)
     })
-    invader = filteredArray
-    // console.log('after filter', invader)
+    invader = filteredArray     //* console.log('after filter', invader)
     return
 
-  },100)
+  },120)
 
 }
 
 // * * * * * * * * * *  I N V A D E R S  * * * * * * * * * *
-
-
 
 function addInvader() {
   invader.forEach((singleInvader) => {
@@ -211,7 +199,7 @@ function handleInvaderMovement(){
         gameEnd()
       }
     })
-  
+
     const rightBorder = invader[invader.length - 1].index % width === width - 2
     const leftBorder = invader[0].index % width === 0
 
@@ -235,11 +223,8 @@ function handleInvaderMovement(){
       })
     }
     addInvader()
-  }, 2000)
+  }, 1500)
 }
-
-
-
 
 // * * * * * * I N V A D E R  L A S E R S  * * * * * * * 
 
@@ -250,6 +235,8 @@ function handleInvaderlaser() {
   let invaderlaserPosition = invader[Math.floor(Math.random() * invaderlaser.length)].index 
   const invaderLaserTimerId = window.setInterval(() => {
 
+    // audioPlayer.src = './assets/alienlaser.wav'
+    // audioPlayer.play()
     if (cells[invaderlaserPosition].classList.contains('spaceship')) {
       playerLoseLife()
       cells[invaderlaserPosition].classList.remove('invaderlaser')
@@ -272,7 +259,7 @@ function handleInvaderlaser() {
   }, 400)
 }
 
-function playerLoseLife() {
+function playerLoseLife() { 
   lives = lives - 1
   if (lives === 0) {
     livesDisplay.textContent = lives
@@ -284,25 +271,17 @@ function playerLoseLife() {
 
 function gameEnd() {
   grid.textContent = `You Lose! You scored: ${score} points!` 
-  setInterval(playAgain, 2000)
+  setInterval(playAgain, 2500)
 }
 
 function handleWin() {
   grid.textContent = `Invader Wave Cleared! You scored: ${score}`
-  setInterval(roundTwo, 3000)
+  setInterval(playAgain, 2500)
 }
 
 function playAgain() {
   location.reload()
 }
-
-function roundTwo() {
-  location.reload()
-  setInterval(handleInvaderMovement, 200)
-  setInterval(handleInvaderlaser, 50) 
-}
-//* TRYING TO RELOAD 2nd LEVEL with INCREASED DIFFICULTY
-
 
 // * * * * * * * * * *  E V E N T S  * * * * * * * * * 
 
