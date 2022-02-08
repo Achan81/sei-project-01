@@ -1,32 +1,178 @@
-# GA SEI 60 Project One - Space Invaders  README #
-Brief
-Technologies Used
-Deployment
-Getting Started
-About the Game
-Game Architecture
-Build
-Features
-Challenges
-Wins 
-Bugs
-Key Learnings
-Future Content and Improvements
-## Brief: ##
+# GA SEI 60 Project One - Space Invaders  README 
+
+[Brief](#brief "Goto brief") | 
+[Technologies used](#technologies-used "Goto technologies-used") | 
+[Deployment](#deployment "Goto deployment") | 
+[Getting Started](#getting-started "Goto getting started") | 
+[About the Game](#about-the-game "Goto about-the-game") | 
+[Game Architecture](#game-architecture "Goto game-architecture") |
+[Build](#build "Goto build") | 
+[Featured Code](#featured-code "Goto featured-code") | 
+[Challenges](#challenges "Goto challenges") | 
+[Wins](#wins "Goto wins") | 
+[Bugs](#bugs "Goto bugs") | 
+[Key Learnings](#key-learnings "Goto key-learnings") | 
+[Future Content and Improvements](#future-content-and-improvements "Goto future-content-and-improvements")
+
+## Brief: 
+* Render a game in the browser (Space Invaders chosen)
+* Design logic for winning & visually display which player won
+* Include separate HTML / CSS / JavaScript files
+* Stick with KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself)  principles
+* Use Javascript for DOM manipulation
+* Use semantic markup for HTML and CSS (adhere to best practices)
+​
 Choose from a list of grid based games and design one (Space Invaders) using HTML, CSS and JavaScript. (One week timeframe for this project)  
-MVP:
-The player should be able to clear at least one wave of aliens
-The player's score should be displayed at the end of the game
-##Technologies used:##
-HTML5
-CSS
-JavaScript (ES6)
-Git
-GitHub
-## Deployment: ##
-This game has been deployed on GitHub Pages and can be found here
-## Getting Started: ##
-Use the clone button to download the game source code. Open the index.html file in your browser and the game should start, if not check the console for any issues.
-## About the Game: ##
+
+* MVP:
+  * The player should be able to clear at least one wave of aliens
+  * The player's score should be displayed at the end of the game
+
+## Technologies used:
+* HTML5
+* CSS
+* JavaScript (ES6)
+* Git
+* GitHub
+
+## Deployment: 
+This game has been deployed on GitHub Pages and can be found [here](https://achan81.github.io/sei-project-01/ "here")
+
+## Getting Started: 
+Use the clone button to download the game source code. 
+Open the index.html file in your browser and the game should start, if not check the console for any issues.
+
+## About the Game: 
 Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet’s surface using a mounted gun turret. The player can only move left or right. The aliens also move from left to right, and also down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player. Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet’s surface.
+<br></br>
 This was my first (solo) project for General Assembly’s SEI course combining the things I learnt in the first 3 weeks of the course.
+
+## Game Architecture:
+The player follows a traditional spaceship theme and can move left and right. I deliberately added up and down manoeuvrability in an effort to make the game more playable to avoid invader fire. Building the grid and placing the player spaceship was the first thing I created. Allowing free movement within the constraints of the grid was the next step. My original plan was to develop all the functions first and then apply styling afterwards, this plan changed slightly when I was at the invaders planning stage, as I ended up deciding on a theme by then and wanted to avoid having a large block of aliens that looked very static in movement. Having decided on a modernised space invaders style game, I decided to layout the invaders to read “HELLO WORLD”. The player can shoot upwards towards the invaders via tapping the spacebar. Getting lasers to fire, and travel up the screen and not crash the app was my second big feature. Eventually of course also needing to work out how the laser would hit a single invader, remove 1 invader from the grid as well as implement scoring.
+
+![helloworld](./assets/hello-world.png)
+
+## Build: 
+Using Excalidraw as a starting point, I spent the first day of this project sketching, pseudo-coding and listing out jobs.
+This was an important step of the process as it helped me to visualise and plan out sections to work on. An obvious difference from planning stages to final version is the grid size.  Originally aiming for 11 x 14 cells, I increased the game board to be a much bigger 25 x 25. My first thought was the shape of grid (square or rectangle) and then looking at all the things needed for the single player (start point, move, fire laser, hit alien), to planning out what would be needed for the aliens (start point, move, drop lasers down, get killed etc). I split my ideas up by listing separately into MVP & Extras. 
+
+![excalidraw](./assets/project1-planning.png)
+
+
+
+
+
+
+## Featured Code:
+Building the game board - using Document Object Model (DOM) to create a main grid-wrapper to contain several smaller grids within.  Targeted odd numbers in preparation for the player to sit centrally in its start position. Grids per row (25) to allow for high number of invaders and to allow smoother animation/movement.
+
+
+```js
+const width = 25  //*(odd numbers limited to 3,9,19,25)
+const cellCount = width * width //* =(otherwise width * height for rectangle)
+ 
+function createGrid() {  
+ for (let i = 0; i < cellCount; i++) {
+   const cell = document.createElement('div')
+   // cell.textContent = i  //*(applies grid numbers to each cell)
+   grid.appendChild(cell)
+   cells.push(cell)
+ }
+} createGrid()
+```
+
+Player Spaceship - key movements by handleKeyDown event listener to remove and add spaceship on every key down. Limiting player movement to not exceed the main outer grid edge. 
+```js
+function handleKeyDown(event) {
+ const x = spaceshipPosition % width
+ const y = Math.floor(spaceshipPosition / width)
+  removeSpaceship()
+ switch (event.code) {
+   case 'ArrowRight':
+     if (x < width - 2) {
+       spaceshipPosition++ //* = spaceshipPosition + 1
+     } break
+   case 'ArrowLeft':
+     if (x > 1) {
+       spaceshipPosition-- //* = spaceshipPosition - 1
+     } break
+   case 'ArrowDown':
+     if (y < width - 1) {
+       spaceshipPosition += width
+     }
+     break
+   case 'ArrowUp':
+     if (y > 0) {
+       spaceshipPosition -= width
+     }
+     break
+   case 'Space':
+     event.preventDefault(), handlePlayerlaser()
+     break
+   default: console.log('Invalid key - no outcome')
+ }
+ addSpaceship()
+}
+ 
+function addSpaceship() {
+ cells[spaceshipPosition].classList.add('spaceship')
+}
+function removeSpaceship() {
+ cells[spaceshipPosition].classList.remove('spaceship')
+}
+```
+
+
+Player laser programming to start from one cell up from the player spaceship, using set interval to allow 
+
+```js
+function handlePlayerlaser() {
+ let playerlaserPosition = spaceshipPosition - width
+ cells[playerlaserPosition].classList.add('playerlaser')
+ function addPlayerlaser() {
+   cells[playerlaserPosition].classList.add('playerlaser')
+ }
+ function removePlayerlaser() {
+   cells[playerlaserPosition].classList.remove('playerlaser')
+ }
+ const playerLaserTimerId = window.setInterval(() => {
+   removePlayerlaser()
+   playerlaserPosition = playerlaserPosition - width
+   addPlayerlaser()
+   console.log(playerlaserPosition, width)
+   if (playerlaserPosition < width) {   
+     removePlayerlaser()             
+     clearInterval(playerLaserTimerId)
+    
+   } else if (cells[playerlaserPosition].classList.contains('invader')) {
+     cells[playerlaserPosition].classList.remove('playerlaser')
+     cells[playerlaserPosition].classList.remove('invader')
+     clearInterval(playerLaserTimerId)
+    
+     score = score + 200
+     scoreDisplay.textContent = score
+   } if (score === 18800) {
+     handleWin()
+   }
+   const filteredArray = invader.filter(singleInvader=>{
+     return (singleInvader.index !== playerlaserPosition)
+   })
+   invader = filteredArray     //* console.log('after filter', invader)
+   return
+ 
+ },120)
+ 
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
