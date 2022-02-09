@@ -1,5 +1,7 @@
 # GA SEI 60 Project One - Space Invaders  README 
 
+![gameplay](/assets/gameplay.gif)
+
 [Brief](#brief "Goto brief") | 
 [Timeframe](#timeframe "Goto timeframe") | 
 [Technologies used](#technologies-used "Goto technologies-used") | 
@@ -117,8 +119,8 @@ function removeSpaceship() {
 ```
 
 **Player laser programming**\
-To start from one cell above from the player spaceship current position. Player laser is activated by pressing **Spacebar** ***(refer to player controls code block above)***, I applied **set interval** to control the pace of the laser fired (120).
-**If-Else** statement was used to remove the laser when laser and invader shares the same cell, at which point, the laser and the invader would be removed. The removed invader would be removed from the Invader group array. A score of 200 would be added to the score display. 
+To start from one cell above from the player spaceship current position. Player laser is activated by pressing **Spacebar** ***(refer to player controls code block above)***, I applied a **set interval** to control the pace of the laser fired (120).
+**If-Else** statement was used to remove the laser when laser and invader share the same cell, at which point, the laser and the invader would be removed. The removed invader would be removed from the Invader group array. A score of 200 would be added to the score display. 
 
 ```js
 function handlePlayerlaser() {
@@ -188,7 +190,7 @@ function handleInvaderlaser() {
 ```
 
 * **Collisions**\
-All collisions dictated by position of something(A) being in the same position as something else(B).
+All collisions are dictated by the position of something(A) being in the same position as something else(B).
 
 Player lasers hitting Invaders...
 ```js
@@ -222,7 +224,7 @@ if (cells[invaderlaserPosition].classList.contains('spaceship')) {
 ```
 
 * **End Game (LOSE)**\
-Invaders reach player start row...
+Invaders reach player start row by setting rule, if single invader reaches cell 575 then gameEnd() function is called...
 ```js
 aliveInvaders.map(singleInvader => {
   if (singleInvader.index > 575) {
@@ -232,7 +234,7 @@ aliveInvaders.map(singleInvader => {
   }
 })
 ```
-Player loses all 3 lives...
+Player loses all 3 lives... when lives counter reaches 0, display is updated and gameEnd() function is called...
 
   ```js 
   function playerLoseLife() { 
@@ -245,7 +247,6 @@ Player loses all 3 lives...
   }
 }
 ```
-
 
 ## Challenges:
 * **Game crashing when laser exceeded limit of board** - this applies to player lasers and invader lasers. To solve this, I had to program the laser to be removed and clear the interval. See solutions for both below...
@@ -290,16 +291,14 @@ Player loses all 3 lives...
   }, 1500)
 ```
 
-
-
 ## Wins:
-* Very happy with my first ever attempt at making a game especially as it was Solo.  This project allowed me to gain a better understanding of Dom, arrays, set intervals. By having the usecase as a game, it really helped to me to understand things better. 
+* Very happy with my first ever attempt at making a game, especially as it was Solo.  This project allowed me to gain a better understanding of Dom, arrays, set intervals. By having the usecase as a game, it really helped me to understand things better. 
 * Styling, I wanted a clean look to the game, and I think I achieved this.
 * Red planet background animation was found on the internet, I found that it helps to give a added sense of motion to the game (even though it is only a 2d game)
 
 ## Bugs:
 * **Invaders group movement** - although a challenge which was overcome, I have found that when the game is in full swing (Invaders firing lasers, with player firing lasers - it can cause some Invaders to pass through the edge of the board (i.e right side, and reappear on left side).
-* **sound effects files / music issues** - in the final hours before this projects deadline, I decided to try and add sound files. I found music for the games background music, and individual sound files to cover sounds of lasers being fired, and collision/explosion sounds too. Unfortunately when when multiple sounds executed, such as multiple shots of lasers plus explosions, the sounds would cancel out one another. Also the background music would glitch when other sounds got executed. In the end, I decided to remove all sound effect and only keep the background music. Sadly, on deployment the background music also failed. 
+* **Sound Effects files / Music issues** - in the final hours before this project's deadline, I decided to try and add sound files. I found music for the game's background music, and individual sound files to cover sounds of lasers being fired, and collision/explosion sounds too. Unfortunately when multiple sounds are executed, such as multiple shots of lasers plus explosions, the sounds would cancel out one another. Also the background music would glitch when other sounds got executed. In the end, I decided to remove all sound effects and only keep the background music. Sadly, on deployment the background music also failed. 
 
 ## Key Learnings:
 * Planning ahead (Excalidraw) and working towards an MVP.
@@ -307,12 +306,14 @@ Player loses all 3 lives...
 * Keeping code consistant, clean and orderly
 
 ## Future Content and Improvements:
-* background music
-* sound effects
-* another 2 levels (increasing difficulty
-* pause function
-* reset game (midgame for better UX)
-* make mobile and tablet responsive (apply touch screen controls & functionality)
+* Debug known glitches
+* Background music
+* Sound effects
+* Levels (increasing difficulty)
+* Pause function
+* Reset game (midgame for better UX)
+* Mobile and tablet responsive (apply touch screen controls & functionality)
+
 
 
 
