@@ -6,7 +6,13 @@ const cells = []
 const startBtn = document.querySelector('#startBtn')
 const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
-const audioPlayer = document.querySelector('#audio')
+
+const gameMusic = new Audio() 
+gameMusic.src = './assets/dos-88-citystomper.mp3'
+gameMusic.volume = 1
+gameMusic.loop = 'loop'
+
+// document.querySelector('#audio')
 
 
 
@@ -80,8 +86,8 @@ let lives = 3
 // * * * * * * * * * *  F U N C T I O N S  * * * * * * * * * *
 
 function handleStartGame() {
-  audioPlayer.src = './assets/dos-88-citystomper.mp3'
-  audioPlayer.play()
+  // gameMusic.src = './assets/dos-88-citystomper.mp3'
+  gameMusic.play()
   addSpaceship()
   addInvader()
   handleInvaderMovement()
@@ -145,7 +151,7 @@ function handlePlayerlaser() {
     removePlayerlaser()
     playerlaserPosition = playerlaserPosition - width
     addPlayerlaser()
-    console.log(playerlaserPosition, width)
+    // console.log(playerlaserPosition, width)
     if (playerlaserPosition < width) {    
       removePlayerlaser()              
       clearInterval(playerLaserTimerId)
@@ -238,7 +244,7 @@ function handleInvaderlaser() {
     // audioPlayer.src = './assets/alienlaser.wav'
     // audioPlayer.play()
     if (cells[invaderlaserPosition].classList.contains('spaceship')) {
-      playerLoseLife()
+      playerLoseLife()     
       cells[invaderlaserPosition].classList.remove('invaderlaser')
       clearInterval(invaderLaserTimerId)
       return
