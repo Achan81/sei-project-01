@@ -9,8 +9,9 @@
 [Getting Started](#getting-started "Goto getting started") | 
 [About the Game](#about-the-game "Goto about-the-game") | 
 [Game Architecture](#game-architecture "Goto game-architecture") |
+[Approach](#approach "Goto approach") | 
+[Planning](#planning "Goto planning") | 
 [Build](#build "Goto build") | 
-[Featured Code](#featured-code "Goto featured-code") | 
 [Challenges](#challenges "Goto challenges") | 
 [Wins](#wins "Goto wins") | 
 [Bugs](#bugs "Goto bugs") | 
@@ -46,7 +47,8 @@ Use the clone button to download the game source code.
 Open the index.html file in your browser and the game should start, if not check the console for any issues.
 
 ## About the Game: 
-Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet’s surface using a mounted gun turret. The player can only move left or right. The aliens also move from left to right, and also down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player. Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet’s surface.
+Space Invaders is a classic arcade game from the 80s.
+The player aims to shoot an invading alien armada, before it reaches the planet’s surface using a mounted gun turret. The player can only move left or right. The aliens also move from left to right, and also down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player. Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet’s surface.
 <br></br>
 This was my first (solo) project for General Assembly’s SEI course combining the things I learnt in the first 3 weeks of the course.
 
@@ -55,12 +57,60 @@ The player follows a traditional spaceship theme and can move left and right. I 
 
 ![helloworld](/assets/hello-world.png)
 
-## Build: 
-Using **Excalidraw** as a starting point, I spent the first day of this project sketching, pseudo-coding and listing out jobs. This was an important step of the process as it helped me to visualise and plan out sections to work on. An obvious difference from planning stages to final version is the grid size. Originally aiming for 11 x 14 cells, I increased the game board to be a much bigger 25 x 25. My first thought was the shape of grid (square or rectangle) and then looking at all the things needed for the single player (start point, move, fire laser, hit alien), to planning out what would be needed for the aliens (start point, move, drop lasers down, get killed etc). I split my ideas up by listing separately into MVP & Extras. 
+## Approach: 
+### Planning: 
+
+The planning for this project mainly involved looking into the logic required for this particular game.  By breaking down each element, I would then be able to visualise each step needed. 
+
+Using **Excalidraw** as a starting point, I spent the first day of this project sketching, pseudo-coding and listing out jobs. I split my ideas up by listing separately into MVP & Extras. An obvious difference from planning shown on Excalidraw to final version is the grid size. Originally aiming for 11 x 14 cells, I ended up with much bigger grid of 25 x 25. Size of grids was changed after I decided on how I wanted to theme the game, dictated by how I wanted the invaders to appear. 
 
 ![excalidraw](/assets/project1-planning.png)
 
-## Featured Code:
+* **Game board**    
+  * grid size
+  * dom
+
+* **Theme**
+  * avoid trying to copy the original
+  * mario brothers / mega man / modern space invaders?
+  * stick to spaceship & invaders, but make more contemporary.
+  * pick png/gifs to represent key elements (player, invader, lasers)
+
+* **Player** 
+  * start point
+  * move left & right (assign keyboard key)
+  * stop player from dissapearing of the grid edge
+  * fire laser (assign keyboard key)
+  
+* **Invaders**
+  * provisional cluster size
+  * place static group
+  * move right -> end, down 1, left -> end, down 1 repeat.
+  * fire laser (randomly and automatically)  
+
+* **Collisions**
+  * player laser hit a single invader
+    * add points for kill
+    * remove invader from cluster 
+  * any single invader laser hit player
+    * player loses a life
+    * reduce players life total by 1
+
+* **Start game**
+  * start button
+    * spaceship appears 
+    * invaders appear + begin moving and firing lasers
+
+* **How to win**
+  * defeat all invaders
+
+* **How to lose**
+  * player loses all lives
+  * invaders / single invader reaches the bottom of the game board (player start point)
+
+
+
+## Build:
 **Building the game board** - using 'Document Object Model (DOM)' to create a main grid-wrapper to contain several smaller grids within. I targeted odd numbers so that the player would have a central start position. 25 cells per row applied to allow for a high number of invaders and to allow smoother animation/movement (less cells = choppy movement).
 
 ```js
