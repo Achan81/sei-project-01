@@ -365,7 +365,7 @@ This was a challenging function to achieve and required quite a bit of trial and
 ## Future Content and Improvements:
 * Debug known glitches
 * Invader explosion animation
-* Player to lose a life if the player position is in same cell as the invader cell.
+* Player to lose a life if the player position is in same cell as the invader cell
 * Background music
 * Sound effects
 * Levels (increasing difficulty)
