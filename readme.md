@@ -72,8 +72,8 @@ Using **Excalidraw** as a starting point, I spent the first day of this project 
 
 * **Theme**
   * avoid trying to copy the original
-  * mario brothers / mega man / modern space invaders?
-  * stick to spaceship & invaders, but make more contemporary.
+  * mario brothers / mega man / modern space invaders
+  * stick to spaceship & invaders, but make more contemporary
   * pick png/gifs to represent key elements (player, invader, lasers)
 
 * **Player** 
@@ -107,8 +107,6 @@ Using **Excalidraw** as a starting point, I spent the first day of this project 
 * **How to lose**
   * player loses all lives
   * invaders / single invader reaches the bottom of the game board (player start point)
-
-
 
 ## Build:
 **Building the game board** - using 'Document Object Model (DOM)' to create a main grid-wrapper to contain several smaller grids within. I targeted odd numbers so that the player would have a central start position. 25 cells per row applied to allow for a high number of invaders and to allow smoother animation/movement (less cells = choppy movement).
@@ -169,7 +167,7 @@ function removeSpaceship() {
 ```
 
 **Player laser programming**\
-To start from one cell above from the player spaceship current position. Player laser is activated by pressing **Spacebar** ***(refer to player controls code block above)***, I applied a **set interval** to control the pace of the laser fired (120).
+To start from one cell above from the player spaceship current position. The player laser is activated by pressing the **spacebar** ***(refer to player controls code block above)***, I applied a **set interval** to control the pace of the laser fired (120).
 **If-Else** statement was used to remove the laser when laser and invader share the same cell, at which point, the laser and the invader would be removed. The removed invader would be removed from the Invader group array. A score of 200 would be added to the score display. 
 
 ```js
@@ -274,7 +272,7 @@ if (cells[invaderlaserPosition].classList.contains('spaceship')) {
 ```
 
 * **End Game (LOSE)**\
-Invaders reach player start row by setting rule, if single invader reaches cell 575 then gameEnd() function is called...
+Invaders reach the player start row by setting a rule, if a single invader reaches cell 575 then the gameEnd() function is called...
 ```js
 aliveInvaders.map(singleInvader => {
   if (singleInvader.index > 575) {
@@ -284,7 +282,7 @@ aliveInvaders.map(singleInvader => {
   }
 })
 ```
-Player loses all 3 lives... when lives counter reaches 0, display is updated and gameEnd() function is called...
+Player loses all 3 lives... when the lives counter reaches 0, the display is updated and the gameEnd() function is called...
 
   ```js 
   function playerLoseLife() { 
@@ -312,7 +310,7 @@ Player loses all 3 lives... when lives counter reaches 0, display is updated and
       clearInterval(invaderLaserTimerId)
       return
 ```
-* **Invaders group across and down movement** - this was a challenging function to achieve and required quite a bit of trial and error to get right. Controlled by **if/else** statements I finally managed to get the group of invaders to behave the way I wanted. [***see Bugs comment***](#bugs "Goto bugs")
+* **Invaders group across and down movement** - this was a challenging function to achieve and required quite a bit of trial and error to get right. Controlled by **if/else** statements, I finally managed to get the group of invaders to behave the way I wanted. [***see Bugs comment***](#bugs "Goto bugs")
 
 ```js
     const rightBorder = invader[invader.length - 1].index % width === width - 2
@@ -342,26 +340,28 @@ Player loses all 3 lives... when lives counter reaches 0, display is updated and
 ```
 
 ## Wins:
-* Very happy with my first ever attempt at making a game, especially as it was Solo.  This project allowed me to gain a better understanding of Dom, arrays, set intervals. By having the usecase as a game, it really helped me to understand things better. 
-* Styling, I wanted a clean look to the game, and I think I achieved this.
-* Red planet background animation was found on the internet, I found that it helps to give a added sense of motion to the game (even though it is only a 2d game)
+* I am very happy with my first ever attempt at making a game, especially as it was Solo.  This project allowed me to gain a better understanding of Dom, arrays, and set intervals. By having the usecase as a game, it really helped me to understand things better. 
+* Styling, I wanted a clean look to the game, and I think I achieved this
+* The Red planet background animation was found on the internet, I found that it helps to give a added sense of motion to the game (even though it is only a 2d game)
 
 ## Bugs:
 * **Invaders group movement** - although a challenge which was overcome, I have found that when the game is in full swing (Invaders firing lasers, with player firing lasers - it can cause some Invaders to pass through the edge of the board (i.e right side, and reappear on left side).
-* **Sound Effects files / Music issues** - in the final hours before this project's deadline, I decided to try and add sound files. I found music for the game's background music, and individual sound files to cover sounds of lasers being fired, and collision/explosion sounds too. Unfortunately when multiple sounds are executed, such as multiple shots of lasers plus explosions, the sounds would cancel out one another. Also the background music would glitch when other sounds got executed. In the end, I decided to remove all sound effects and only keep the background music. Sadly, on deployment the background music also failed. 
+* **Sound Effects files / Music issues** - in the final hours before this project's deadline, I decided to try and add sound files. I found music for the game's background music, and individual sound files to cover sounds of lasers being fired, and collision/explosion sounds too. Unfortunately, when multiple sounds are executed, such as multiple shots of lasers plus explosions, the sounds would cancel out one another. Also the background music would glitch when other sounds got executed. In the end, I decided to remove all sound effects and only keep the background music. Sadly, on deployment the background music also failed. 
 
 ## Key Learnings:
-* Planning ahead (Excalidraw) and working towards an MVP.
+* Planning ahead (Excalidraw) and working towards an MVP
 * Applying basics learnt into practice (HTML x CSS x JavaScript)
-* Keeping code consistant, clean and orderly
+* Keeping code consistent, clean and orderly
 
 ## Future Content and Improvements:
 * Debug known glitches
+* invader explosion animation
+* player to lose a life if the player position is in same cell as the invader cell.
 * Background music
 * Sound effects
 * Levels (increasing difficulty)
-* Pause function
-* Reset game (midgame for better UX)
+* Pause function (after game has started for better UX)
+* Reset game (after game has started for better UX)
 * Mobile and tablet responsive (apply touch screen controls & functionality)
 
 
