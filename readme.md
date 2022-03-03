@@ -373,7 +373,10 @@ This was a challenging function to achieve and required quite a bit of trial and
 * Reset game (after game has started for better UX)
 * Mobile and tablet responsive (apply touch screen controls & functionality)
 
+<br></br>
+<hr></hr>
 
+[Back to TOP](#overview "Goto overview")
 
 
 
